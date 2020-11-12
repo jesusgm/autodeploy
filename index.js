@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 app.get("/autodeploy", (req, res) => {
 	shell.exec('./autodeploy.sh')
-},
+}),
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
