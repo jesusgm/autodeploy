@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
  	res.send('Hello World modificado 2!')
 })
 
-app.get("/autodeploy", (req, res) => {
+app.post("/autodeploy", (req, res) => {
 	const { exec } = require('child_process');
 	var yourscript = exec('sh autodeploy.sh',
         (error, stdout, stderr) => {
