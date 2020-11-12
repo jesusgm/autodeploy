@@ -1,6 +1,5 @@
 
 const express = require('express')
-const shell = require("shelljs");
 
 const app = express()
 const port = 3000
@@ -10,7 +9,16 @@ app.get('/', (req, res) => {
 })
 
 app.get("/autodeploy", (req, res) => {
-	shell.exec('./autodeploy.sh')
+	const { exec } = require('child_process');
+	var yourscript = exec('sh autodeploy.sh',
+        (error, stdout, stderr) => {
+
+            if (error !== null) {
+                res.send(`exec error: ${error}`);
+            }else{
+	    	res.send(stdout);
+	    }
+        });
 }),
 
 app.listen(port, () => {
