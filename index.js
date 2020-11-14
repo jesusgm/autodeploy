@@ -1,7 +1,10 @@
 const express = require("express");
+var bodyParser = require("body-parser");
 
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.json());
 
 const exectScript = (path) => {
   const { exec } = require("child_process");
