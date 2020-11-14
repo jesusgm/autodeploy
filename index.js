@@ -16,6 +16,7 @@ const exectScript = (path) => {
 
 app.post("/autodeploy", (req, res) => {
   const body = req.body;
+  console.log(req.body);
   let gitProjectPath = body.repository.name;
 
   res.send(exectScript(gitProjectPath));
