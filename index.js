@@ -1,27 +1,26 @@
+const express = require("express");
 
-const express = require('express')
+const app = express();
+const port = 3000;
 
-const app = express()
-const port = 3000
-
-app.get('/', (req, res) => {
- 	res.send('Hello World!')
-})
+const exectScript = (path) => {
+  const { exec } = require("child_process");
+  var yourscript = exec(`sh autodeploy.sh ${path}`, (error, stdout, stderr) => {
+    if (error !== null) {
+      return `exec error: ${error}`;
+    } else {
+      return stdout;
+    }
+  });
+};
 
 app.post("/autodeploy", (req, res) => {
-	const { exec } = require('child_process');
-	var yourscript = exec('sh autodeploy.sh',
-        (error, stdout, stderr) => {
+  const body = req.body;
+  let gitProjectPath = body.repository.name;
 
-            if (error !== null) {
-                res.send(`exec error: ${error}`);
-            }else{
-	    	res.send(stdout);
-	    }
-        });
-}),
+  res.send(exectScript(gitProjectPath));
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
+  console.log(`Example app listening at http://localhost:${port}`);
+});
